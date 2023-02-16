@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Light
+  - PatrolPoint
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - Enemy
+  - Lights
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Skybox
+    uniqueID: 126847747
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: GlobalIlum
+    uniqueID: 2795955159
+    locked: 0
+  - name: Player
+    uniqueID: 3015046429
+    locked: 0
+  - name: Walls
+    uniqueID: 3947933839
+    locked: 0
+  - name: Lights
+    uniqueID: 2272956863
+    locked: 0
