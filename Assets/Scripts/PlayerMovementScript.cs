@@ -30,18 +30,12 @@ public class PlayerMovementScript : MonoBehaviour
 		prb = gameObject.GetComponent<Rigidbody2D>();
 		lights = GameObject.FindGameObjectsWithTag("Light");
 		int i = 0;
-		int mouseLightsHashCheck = 0;
 		foreach (GameObject Light in lights)
 		{
 			lightsHash.Add(i, 1);
+			mouseLightsHash.Add(i, 1);
 			i++;
 		}
-		foreach (GameObject Light in lights)
-		{
-			mouseLightsHash.Add(mouseLightsHashCheck, 1);
-			mouseLightsHashCheck++;
-		}
-
 	}
 
 	void Update()
@@ -83,7 +77,6 @@ public class PlayerMovementScript : MonoBehaviour
 		}
 		//raycasting to lights to check when player is in shadows--------------------------------
 		int y = 0;
-		int currentlight = 0;
 		foreach (GameObject Light in lights)
 		{
 			if (Vector3.Distance(transform.position, Light.transform.position) < Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius)
@@ -118,7 +111,6 @@ public class PlayerMovementScript : MonoBehaviour
 			{
 				lightsHash[y] = 1;
 			}
-			y++;
 			//mouse stealth check ///////////////////////
 			if (Vector3.Distance(mousePositionTrue, Light.transform.position) < Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius)
 			{
@@ -126,18 +118,18 @@ public class PlayerMovementScript : MonoBehaviour
 				
 				if (mouseStealthHit.collider == null)
 				{
-					mouseLightsHash[currentlight] = 0;
+					mouseLightsHash[y] = 0;
 				}
 				else
 				{
-					mouseLightsHash[currentlight] = 1;
+					mouseLightsHash[y] = 1;
 				}
 			}
 			else
 			{
-				mouseLightsHash[currentlight] = 1;
+				mouseLightsHash[y] = 1;
 			}
-			currentlight++;
+			y++;
 			//mouse stealth check end ///////////////////
 		}
 		if (lightsHash.ContainsValue(0))
