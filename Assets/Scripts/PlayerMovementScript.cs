@@ -17,9 +17,12 @@ public class PlayerMovementScript : MonoBehaviour
 	public LayerMask lightMask;
 	GameObject[] lights;
 	public static bool isInStealth;
+	public static bool mouseStealth;
 	public Hashtable lightsHash = new Hashtable();
 	public GameObject text;
 	Vector3 mousePosition;
+	Vector3 mousePositionTrue;
+	public Hashtable mouseLightsHash = new Hashtable();
 
 	void Start()
 	{
@@ -27,17 +30,23 @@ public class PlayerMovementScript : MonoBehaviour
 		prb = gameObject.GetComponent<Rigidbody2D>();
 		lights = GameObject.FindGameObjectsWithTag("Light");
 		int i = 0;
+		int mouseLightsHashCheck = 0;
 		foreach (GameObject Light in lights)
 		{
 			lightsHash.Add(i, 1);
 			i++;
+		}
+		foreach (GameObject Light in lights)
+		{
+			mouseLightsHash.Add(mouseLightsHashCheck, 1);
+			mouseLightsHashCheck++;
 		}
 
 	}
 
 	void Update()
 	{
-		text.GetComponent<Text>().text = lightsHash[0] + "\n" + lightsHash[1] + "\n" + lightsHash[2] + "\n" + lightsHash[3] + "\n" + lightsHash[4];
+		text.GetComponent<Text>().text = lightsHash[0] + "\n" + lightsHash[1] + "\n" + lightsHash[2] + "\n" + lightsHash[3] + "\n" + lightsHash[4] + "\n" + mouseStealth + "\n" + mouseLightsHash[0] + "\n" + mouseLightsHash[1] + "\n" + mouseLightsHash[2] + "\n" + mouseLightsHash[3] + "\n" + mouseLightsHash[4] + "\n";
 		//get movement input
 		movement.x = Input.GetAxisRaw("Horizontal");
 		movement.y = Input.GetAxisRaw("Vertical");
@@ -59,6 +68,8 @@ public class PlayerMovementScript : MonoBehaviour
 			LockMovement();
 		}
 		//rotate player to mouse, also check for locked movement -----------------
+		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		mousePositionTrue = new Vector3(mousePosition.x, mousePosition.y, -1);
 		if(lockmovement == false)
 		{
 			if (Input.GetMouseButtonDown(0) && Time.time - AttackTime > AttackCD)
@@ -66,13 +77,13 @@ public class PlayerMovementScript : MonoBehaviour
 				AttackTime = Time.time;
 				wpn_anim.PAttack();
 			}
-			mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	   	 	Vector2 direction = (mousePosition - transform.position).normalized;
 			float angle = Vector2.SignedAngle(Vector2.up, direction);
 			transform.eulerAngles = new Vector3(0, 0, angle);
 		}
 		//raycasting to lights to check when player is in shadows--------------------------------
 		int y = 0;
+		int currentlight = 0;
 		foreach (GameObject Light in lights)
 		{
 			if (Vector3.Distance(transform.position, Light.transform.position) < Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius)
@@ -101,12 +112,32 @@ public class PlayerMovementScript : MonoBehaviour
 				}
 				//RaycastHit2D stealthHit = Physics2D.Raycast(Light.transform.position, transform.position - Light.transform.position, Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(transform.position, Light.transform.position)));
 				//sem pak dej switch kde skopriujes jenom to nad timhle komentem, top left right bottom podle i ve for loopu
+			
 			}
 			else
 			{
 				lightsHash[y] = 1;
 			}
 			y++;
+			//mouse stealth check ///////////////////////
+			if (Vector3.Distance(mousePositionTrue, Light.transform.position) < Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius)
+			{
+				RaycastHit2D mouseStealthHit = Physics2D.Raycast(Light.transform.position, mousePositionTrue - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mousePositionTrue, Light.transform.position)));
+				
+				if (mouseStealthHit.collider == null)
+				{
+					mouseLightsHash[currentlight] = 0;
+				}
+				else
+				{
+					mouseLightsHash[currentlight] = 1;
+				}
+			}
+			else
+			{
+				mouseLightsHash[currentlight] = 1;
+			}
+			//mouse stealth check end ///////////////////
 		}
 		if (lightsHash.ContainsValue(0))
 		{
@@ -115,6 +146,21 @@ public class PlayerMovementScript : MonoBehaviour
 		else // VE STEALTHU JE 1!!
 		{
 			isInStealth = true;
+		}
+		if (mouseLightsHash.ContainsValue(0))
+		{
+			mouseStealth = false;
+		}
+		else // VE STEALTHU JE 1!!
+		{
+			mouseStealth = true;
+		}
+		if (isInStealth == true && mouseStealth == true)
+		{
+			if (Input.GetMouseButtonDown(1))
+			{
+				transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
+			}
 		}
 	//stealth check end -------------------------------------
 	}
