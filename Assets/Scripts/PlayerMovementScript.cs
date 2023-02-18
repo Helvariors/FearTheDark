@@ -137,6 +137,7 @@ public class PlayerMovementScript : MonoBehaviour
 			{
 				mouseLightsHash[currentlight] = 1;
 			}
+			currentlight++;
 			//mouse stealth check end ///////////////////
 		}
 		if (lightsHash.ContainsValue(0))
