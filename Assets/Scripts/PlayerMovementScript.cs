@@ -23,6 +23,8 @@ public class PlayerMovementScript : MonoBehaviour
 	Vector3 mousePosition;
 	Vector3 mousePositionTrue;
 	public Hashtable mouseLightsHash = new Hashtable();
+	public Animator PauseMenuAnim;
+	public bool PauseMenuOn;
 
 	void Start()
 	{
@@ -156,6 +158,17 @@ public class PlayerMovementScript : MonoBehaviour
 			}
 		}
 	//stealth check end -------------------------------------
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (PauseMenuOn)
+			{
+				HidePauseMenu();
+			}
+			else
+			{
+				ShowPauseMenu();
+			}
+		}
 	}
 	void FixedUpdate() 
 	{
@@ -177,5 +190,19 @@ public class PlayerMovementScript : MonoBehaviour
 			lockmovement = false;
 			Debug.Log("Unlocked movement");
 		}
+	}
+	public void HidePauseMenu()
+	{
+		PauseMenuOn = false;
+		PauseMenuAnim.SetBool("ShowMenu", false);
+		lockmovement = false;
+		Time.timeScale = 1f;
+	}
+	public void ShowPauseMenu()
+	{
+		PauseMenuOn = true;
+		PauseMenuAnim.SetBool("ShowMenu", true);
+		lockmovement = true;
+		Time.timeScale = 0f;
 	}
 }
