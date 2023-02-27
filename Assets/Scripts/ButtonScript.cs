@@ -37,14 +37,12 @@ public class ButtonScript : MonoBehaviour
 	{
 		if (PlayerMovementScript.PauseMenuOn == true)
 		{
-			Debug.Log("Opened options menu");
 			OptionsPMenuOn = true;
 			OptionsParent.SetActive(true);
 		}
 	}
 	public void HideOptionsPMenu()
 	{
-			Debug.Log("Closed options menu");
 			OptionsPMenuOn = false;
 			OptionsParent.SetActive(false);
 	}
