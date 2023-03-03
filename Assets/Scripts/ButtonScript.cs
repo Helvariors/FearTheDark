@@ -70,4 +70,9 @@ public class ButtonScript : MonoBehaviour
 			OptionsPMenuOn = false;
 			OptionsParent.SetActive(false);
 	}
+	public void QuitGame()
+	{
+		Application.Quit();
+		Debug.Log("Exiting the game");
+	}
 }
