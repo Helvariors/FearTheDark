@@ -8,6 +8,7 @@ public class ScreenSettingsScript : MonoBehaviour
 	int screenWidth;
 	int screenHeight;
 	public bool fullscreenOn;
+	public bool vSyncOn;
 	public int chosenScreenRes;
 	public Toggle fsToggle;
 	public TMPro.TMP_Dropdown resDropdown;
@@ -51,13 +52,36 @@ public class ScreenSettingsScript : MonoBehaviour
 				screenHeight = 1080;
 				break;
 		}
-		SetScreenResolution();
+		SetVidSettings();
 	}
-	public void SetScreenResolution()
+	public void SetVidSettings()
 	{
 		fullscreenOn = fsToggle.isOn;
 		//width height fullscreen
 		Screen.SetResolution(screenWidth, screenHeight, fullscreenOn);
 		Debug.Log(screenWidth);
+		SaveVidSettings();
+	}
+	public void SaveVidSettings()
+	{
+		if (fullscreenOn)
+		{
+			PlayerPrefs.SetInt("fullscreenOn", 1);
+		}
+		else
+		{
+			PlayerPrefs.SetInt("fullscreenOn", 0);
+		}
+		
+		if (vSyncOn)
+		{
+			PlayerPrefs.SetInt("vSyncOn", 1);
+		}
+		else
+		{
+			PlayerPrefs.SetInt("vSyncOn", 0);
+		}
+		
+		PlayerPrefs.SetInt("chosenScreenRes", chosenScreenRes);
 	}
 }
