@@ -51,11 +51,13 @@ public class ScreenSettingsScript : MonoBehaviour
 				screenHeight = 1080;
 				break;
 		}
+		SetScreenResolution();
 	}
 	public void SetScreenResolution()
 	{
 		fullscreenOn = fsToggle.isOn;
 		//width height fullscreen
 		Screen.SetResolution(screenWidth, screenHeight, fullscreenOn);
+		Debug.Log(screenWidth);
 	}
 }
