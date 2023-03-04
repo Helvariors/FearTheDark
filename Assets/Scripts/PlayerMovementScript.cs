@@ -25,6 +25,13 @@ public class PlayerMovementScript : MonoBehaviour
 	public Hashtable mouseLightsHash = new Hashtable();
 	public Animator PauseMenuAnim;
 	public bool PauseMenuOn;
+	
+	GameObject mouseLightCheckPositions;
+	GameObject mouseLightCheckPosTop;
+	GameObject mouseLightCheckPosLeft;
+	GameObject mouseLightCheckPosRight;
+	GameObject mouseLightCheckPosBottom;
+	
 
 	void Start()
 	{
@@ -38,6 +45,11 @@ public class PlayerMovementScript : MonoBehaviour
 			mouseLightsHash.Add(i, 1);
 			i++;
 		}
+		mouseLightCheckPositions = GameObject.Find("MouseLightCheckPositions");
+		mouseLightCheckPosTop = GameObject.Find("MouseLightCheckPositions/MouseLightCheckPosTop");
+		mouseLightCheckPosLeft = GameObject.Find("MouseLightCheckPositions/MouseLightCheckPosLeft");
+		mouseLightCheckPosRight = GameObject.Find("MouseLightCheckPositions/MouseLightCheckPosRight");
+		mouseLightCheckPosBottom = GameObject.Find("MouseLightCheckPositions/MouseLightCheckPosBottom");
 	}
 
 	void Update()
@@ -116,9 +128,12 @@ public class PlayerMovementScript : MonoBehaviour
 			//mouse stealth check ///////////////////////
 			if (Vector3.Distance(mousePositionTrue, Light.transform.position) < Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius)
 			{
-				RaycastHit2D mouseStealthHit = Physics2D.Raycast(Light.transform.position, mousePositionTrue - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mousePositionTrue, Light.transform.position)));
+				RaycastHit2D mouseStealthHit1 = Physics2D.Raycast(Light.transform.position, mouseLightCheckPosTop.transform.position - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mouseLightCheckPosTop.transform.position, Light.transform.position)));
+				RaycastHit2D mouseStealthHit2 = Physics2D.Raycast(Light.transform.position, mouseLightCheckPosLeft.transform.position - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mouseLightCheckPosLeft.transform.position, Light.transform.position)));
+				RaycastHit2D mouseStealthHit3 = Physics2D.Raycast(Light.transform.position, mouseLightCheckPosRight.transform.position - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mouseLightCheckPosRight.transform.position, Light.transform.position)));
+				RaycastHit2D mouseStealthHit4 = Physics2D.Raycast(Light.transform.position, mouseLightCheckPosBottom.transform.position - Light.transform.position,  Mathf.Clamp(Light.GetComponent<UnityEngine.Rendering.Universal.Light2D>().pointLightOuterRadius, 0, Vector3.Distance(mouseLightCheckPosBottom.transform.position, Light.transform.position)));
 				
-				if (mouseStealthHit.collider == null)
+				if (mouseStealthHit1.collider == null || mouseStealthHit2.collider == null || mouseStealthHit3.collider == null || mouseStealthHit4.collider == null)
 				{
 					mouseLightsHash[y] = 0;
 				}
@@ -169,6 +184,8 @@ public class PlayerMovementScript : MonoBehaviour
 				ShowPauseMenu();
 			}
 		}
+		//mouse stealth checkers moving to mouse pos//
+		mouseLightCheckPositions.transform.position = mousePositionTrue;
 	}
 	void FixedUpdate() 
 	{
