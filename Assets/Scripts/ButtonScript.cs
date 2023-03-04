@@ -11,7 +11,6 @@ public class ButtonScript : MonoBehaviour
 	public Toggle fSToggle;
 	public Toggle vSToggle;
 	public TMPro.TMP_Dropdown resDropdown;
-	public Animator PauseMenuAnim;
 	
 	void Start()
 	{
@@ -44,7 +43,7 @@ public class ButtonScript : MonoBehaviour
 		if (PlayerMovementScript.PauseMenuOn == true)
 		{
 			OptionsPMenuOn = true;
-			PauseMenuAnim.SetBool("ShowOptions", true);
+			OptionsParent.SetActive(true);
 			
 			if (PlayerPrefs.GetInt("fullscreenOn", 0) == 1)
 			{
@@ -69,7 +68,7 @@ public class ButtonScript : MonoBehaviour
 	public void HideOptionsPMenu()
 	{
 			OptionsPMenuOn = false;
-			PauseMenuAnim.SetBool("ShowOptions", false);
+			OptionsParent.SetActive(false);
 	}
 	public void QuitGame()
 	{

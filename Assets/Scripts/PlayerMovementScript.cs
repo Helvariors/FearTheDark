@@ -212,7 +212,6 @@ public class PlayerMovementScript : MonoBehaviour
 	{
 		PauseMenuOn = false;
 		PauseMenuAnim.SetBool("ShowMenu", false);
-		PauseMenuAnim.SetBool("ShowOptions", false);
 		lockmovement = false;
 		Time.timeScale = 1f;
 	}
