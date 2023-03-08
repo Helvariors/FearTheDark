@@ -31,10 +31,13 @@ public class PlayerMovementScript : MonoBehaviour
 	GameObject mouseLightCheckPosLeft;
 	GameObject mouseLightCheckPosRight;
 	GameObject mouseLightCheckPosBottom;
+	bool DebugEnabled;
+	[SerializeField] GameObject DebugMenu;
 	
 
 	void Start()
 	{
+		DisableDebug();
 		//set the rigidbody component
 		prb = gameObject.GetComponent<Rigidbody2D>();
 		lights = GameObject.FindGameObjectsWithTag("Light");
@@ -54,6 +57,19 @@ public class PlayerMovementScript : MonoBehaviour
 
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.P))
+		{
+			if (DebugEnabled)
+			{
+				DebugEnabled = false;
+				DisableDebug();
+			}
+			else
+			{
+				DebugEnabled = true;
+				EnableDebug();
+			}
+		}
 		text.GetComponent<Text>().text = lightsHash[0] + "\n" + lightsHash[1] + "\n" + lightsHash[2] + "\n" + lightsHash[3] + "\n" + lightsHash[4] + "\n" + mouseStealth + "\n" + mouseLightsHash[0] + "\n" + mouseLightsHash[1] + "\n" + mouseLightsHash[2] + "\n" + mouseLightsHash[3] + "\n" + mouseLightsHash[4] + "\n";
 		//get movement input
 		movement.x = Input.GetAxisRaw("Horizontal");
@@ -221,5 +237,13 @@ public class PlayerMovementScript : MonoBehaviour
 		PauseMenuAnim.SetBool("ShowMenu", true);
 		lockmovement = true;
 		Time.timeScale = 0f;
+	}
+	public void EnableDebug()
+	{
+		DebugMenu.SetActive(true);
+	}
+	public void DisableDebug()
+	{
+		DebugMenu.SetActive(false);
 	}
 }
