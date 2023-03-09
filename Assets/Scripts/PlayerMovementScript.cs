@@ -211,7 +211,7 @@ public class PlayerMovementScript : MonoBehaviour
 		}
 	}
 	//void for locking the movement (and rotation) of the player----------------
-	void LockMovement()
+	public void LockMovement()
 	{
 		if (!lockmovement)
 		{ 
