@@ -33,6 +33,8 @@ public class PlayerMovementScript : MonoBehaviour
 	GameObject mouseLightCheckPosBottom;
 	bool DebugEnabled;
 	[SerializeField] GameObject DebugMenu;
+	[SerializeField] Animator PlayerAnimator;
+	bool TpDown;
 	
 
 	void Start()
@@ -181,11 +183,13 @@ public class PlayerMovementScript : MonoBehaviour
 		{
 			mouseStealth = true;
 		}
-		if (isInStealth == true && mouseStealth == true)
+		//ShadowStepping
+		if (isInStealth == true && mouseStealth == true )
 		{
-			if (Input.GetMouseButtonDown(1))
+			TpDown = PlayerAnimator.GetBool("TpReady");
+			if (Input.GetMouseButtonDown(1) && TpDown == false)
 			{
-				transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
+				ShadowStep();
 			}
 		}
 	//stealth check end -------------------------------------
@@ -245,5 +249,15 @@ public class PlayerMovementScript : MonoBehaviour
 	public void DisableDebug()
 	{
 		DebugMenu.SetActive(false);
+	}
+	void ShadowStep()
+	{
+		transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
+		PlayerAnimator.SetBool("TpReady", true);
+		Invoke("ShadowStepEnd", 0.35f);
+	}
+	void ShadowStepEnd()
+	{
+		PlayerAnimator.SetBool("TpReady", false);
 	}
 }
