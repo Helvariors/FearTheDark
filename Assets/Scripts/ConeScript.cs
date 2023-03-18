@@ -16,7 +16,7 @@ public class ConeScript : MonoBehaviour
 	{
 
 	}
-	void OnTriggerStay2D(Collider2D col)   
+	void OnTriggerEnter2D(Collider2D col)   
 	{
 		if (col.gameObject.tag == "Player")
 		{
@@ -35,7 +35,7 @@ public class ConeScript : MonoBehaviour
 			{
 				GameObject playerPos = GameObject.FindGameObjectWithTag("Player");
 				RaycastHit2D playerCheck = Physics2D.Raycast(enemyScript.gameObject.transform.position, playerPos.transform.position - enemyScript.gameObject.transform.position, Mathf.Clamp(enemyRange, 0, Vector3.Distance(playerPos.transform.position, transform.position)), Pmask);
-				if(playerCheck.collider == null)
+				if(playerCheck.collider == null && !PlayerMovementScript.isInStealth)
 				{
 					Debug.DrawRay(enemyScript.gameObject.transform.position, (playerPos.transform.position - enemyScript.gameObject.transform.position).normalized * enemyRange, Color.yellow);
 					enemyScript.PSpotted();
