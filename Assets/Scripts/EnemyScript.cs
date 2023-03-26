@@ -11,7 +11,7 @@ public class EnemyScript : MonoBehaviour
 	public bool playerSeen = false;
 	List<Transform> Temp = new List<Transform>();
 	GameObject player;
-	
+	public EnemyManagerScript EnemyManagerScript;
 	
 
 	void Start()

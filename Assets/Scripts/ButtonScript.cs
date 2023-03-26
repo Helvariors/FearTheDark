@@ -12,6 +12,8 @@ public class ButtonScript : MonoBehaviour
 	public Toggle vSToggle;
 	public TMPro.TMP_Dropdown resDropdown;
 	public Animator PauseMenuAnim;
+	public bool DoorObjTextShown = false;
+	GameObject DoorObjText;
 	
 	void Start()
 	{
@@ -19,6 +21,8 @@ public class ButtonScript : MonoBehaviour
 		GameObject ETMButton = GameObject.Find("PauseMenu/ETMButton");
 		GameObject QuitButton = GameObject.Find("PauseMenu/QuitButton");
 		OptionsParent = GameObject.Find("PauseMenu/Options/OptionsParent");
+		DoorObjText = GameObject.Find("Canvas/DoorObjText");
+		DoorObjTextHide();
 	}
 
 	void Update()
@@ -27,6 +31,7 @@ public class ButtonScript : MonoBehaviour
 		{
 			HideOptionsPMenu();
 		}
+		HideOptionsPMenu();
 	}
 	public void DecideOptionsPMenu()
 	{
@@ -75,5 +80,16 @@ public class ButtonScript : MonoBehaviour
 	{
 		Application.Quit();
 		Debug.Log("Exiting the game");
+	}
+	public void DoorObjTextShow()
+	{
+		DoorObjTextShown = true;
+		DoorObjText.GetComponent<Text>().text = DoorScript.DoorObjTextMediator;
+		DoorObjText.SetActive(true);
+	}
+	public void DoorObjTextHide()
+	{
+		DoorObjTextShown = false;
+		DoorObjText.SetActive(false);
 	}
 }
