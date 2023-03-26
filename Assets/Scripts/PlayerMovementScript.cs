@@ -19,7 +19,7 @@ public class PlayerMovementScript : MonoBehaviour
 	public static bool isInStealth;
 	public static bool mouseStealth;
 	public Hashtable lightsHash = new Hashtable();
-	public GameObject text;
+	public GameObject debugText;
 	Vector3 mousePosition;
 	Vector3 mousePositionTrue;
 	public Hashtable mouseLightsHash = new Hashtable();
@@ -72,7 +72,7 @@ public class PlayerMovementScript : MonoBehaviour
 				EnableDebug();
 			}
 		}
-		text.GetComponent<Text>().text = lightsHash[0] + "\n" + lightsHash[1] + "\n" + lightsHash[2] + "\n" + lightsHash[3] + "\n" + lightsHash[4] + "\n" + mouseStealth + "\n" + mouseLightsHash[0] + "\n" + mouseLightsHash[1] + "\n" + mouseLightsHash[2] + "\n" + mouseLightsHash[3] + "\n" + mouseLightsHash[4] + "\n";
+		debugText.GetComponent<Text>().text = " Light0 " + lightsHash[0] + "\n Light1 " + lightsHash[1] + "\n Light2 " + lightsHash[2] + "\n Light3" + lightsHash[3] + "\n Light4" + lightsHash[4] + "\n ML" + mouseStealth + "\n ML0 " + mouseLightsHash[0] + "\n ML1 " + mouseLightsHash[1] + "\n ML2 " + mouseLightsHash[2] + "\n ML3 " + mouseLightsHash[3] + "\n ML4 " + mouseLightsHash[4] + "\n Door1 ";
 		//get movement input
 		movement.x = Input.GetAxisRaw("Horizontal");
 		movement.y = Input.GetAxisRaw("Vertical");
