@@ -37,6 +37,7 @@ public class DoorScript : MonoBehaviour
 	//open and close the door
 	public void OpenDoor()
 	{
+		Debug.Log("Open Door");
 		gameObject.SetActive(false);
 	}
 	public void CloseDoor()

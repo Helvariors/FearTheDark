@@ -6,7 +6,6 @@ public class DoorManagerScript : MonoBehaviour
 {
 	public int doorInt = 0;
 	GameObject[] Doors;
-	public Hashtable doorsHash = new Hashtable();
 	public int currentDoorInt;
 	public DoorScript DoorScript;
 	void Start()
@@ -14,23 +13,12 @@ public class DoorManagerScript : MonoBehaviour
 		ResetDoorInt();
 		//find all doors in the level
 		Doors = GameObject.FindGameObjectsWithTag("Door");
-		int doorAdding = 0;
-		//add all the doors into a hashtable
-		foreach (GameObject Door in Doors)
-		{
-			//false = dvere zavrene
-			doorsHash.Add(doorAdding, false);
-			doorAdding++;
-		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (doorsHash.ContainsValue(true))
-		{
-			Doors[currentDoorInt].GetComponent<DoorScript>().OpenDoor();
-		}
+
 	}
 	void ResetDoorInt()
 	{
@@ -41,13 +29,10 @@ public class DoorManagerScript : MonoBehaviour
 	{
 		if(currentDoorInt + 1 < Doors.Length)
 		{
-			doorsHash[doorInt] = true;
+			Debug.Log("Opening next door");
 			doorInt = doorInt + 1;
 			currentDoorInt = doorInt - 1;			
+			Doors[currentDoorInt].GetComponent<DoorScript>().OpenDoor();
 		}
-	}
-	public void CloseNextDoor()
-	{
-		doorsHash[doorInt] = false;
 	}
 }
