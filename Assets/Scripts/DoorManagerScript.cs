@@ -5,21 +5,9 @@ using UnityEngine;
 public class DoorManagerScript : MonoBehaviour
 {
 	public int doorInt = 0;
-	GameObject[] Doors;
+	public GameObject[] Doors;
 	public int currentDoorInt;
 	public DoorScript DoorScript;
-	void Start()
-	{
-		ResetDoorInt();
-		//find all doors in the level
-		Doors = GameObject.FindGameObjectsWithTag("Door");
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
 	void ResetDoorInt()
 	{
 		doorInt = 0;

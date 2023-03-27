@@ -9,10 +9,6 @@ public class DoorScript : MonoBehaviour
 	[SerializeField] string DoorObjTextEditor;
 	public static string DoorObjTextMediator;
 	GameObject DoorManager;
-	void Start()
-	{
-		
-	}
 
 	void Update()
 	{
