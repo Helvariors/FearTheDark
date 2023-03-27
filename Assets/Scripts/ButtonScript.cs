@@ -31,10 +31,10 @@ public class ButtonScript : MonoBehaviour
 		{
 			HideOptionsPMenu();
 		}
-		HideOptionsPMenu();
 	}
 	public void DecideOptionsPMenu()
 	{
+		
 		if (OptionsPMenuOn == false)
 		{
 			ShowOptionsPMenu();
