@@ -36,7 +36,9 @@ public class PlayerMovementScript : MonoBehaviour
 	[SerializeField] Animator PlayerAnimator;
 	bool TpDown;
 	[SerializeField] GameObject playerPoint;
-	
+	public CameraScript CameraScript;
+	[SerializeField] GameObject StealthEyeOpened;
+	[SerializeField] GameObject StealthEyeClosed;
 
 	void Start()
 	{
@@ -194,7 +196,7 @@ public class PlayerMovementScript : MonoBehaviour
 				ShadowStep();
 			}
 		}
-	//stealth check end -------------------------------------
+		//stealth check end -------------------------------------
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			if (PauseMenuOn)
@@ -208,6 +210,16 @@ public class PlayerMovementScript : MonoBehaviour
 		}
 		//mouse stealth checkers moving to mouse pos//
 		mouseLightCheckPositions.transform.position = mousePositionTrue;
+		if (isInStealth)
+		{
+			StealthEyeOpened.SetActive(false);
+			StealthEyeClosed.SetActive(true);
+		}
+		else
+		{
+			StealthEyeOpened.SetActive(true);
+			StealthEyeClosed.SetActive(false);
+		}
 	}
 	void FixedUpdate() 
 	{
@@ -255,7 +267,6 @@ public class PlayerMovementScript : MonoBehaviour
 	void ShadowStep()
 	{
 		RaycastHit2D CanShadowStep = Physics2D.Raycast(playerPoint.transform.position, mousePositionTrue - playerPoint.transform.position, Vector2.Distance(mousePositionTrue, playerPoint.transform.position));
-		Debug.Log(CanShadowStep.collider);
 		if (CanShadowStep.collider == null)
 		{
 			transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
