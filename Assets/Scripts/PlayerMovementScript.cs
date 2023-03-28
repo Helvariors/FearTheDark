@@ -35,6 +35,7 @@ public class PlayerMovementScript : MonoBehaviour
 	[SerializeField] GameObject DebugMenu;
 	[SerializeField] Animator PlayerAnimator;
 	bool TpDown;
+	[SerializeField] GameObject playerPoint;
 	
 
 	void Start()
@@ -59,6 +60,7 @@ public class PlayerMovementScript : MonoBehaviour
 
 	void Update()
 	{
+		Debug.DrawRay(playerPoint.transform.position, mousePositionTrue - playerPoint.transform.position, Color.blue);
 		if(Input.GetKeyDown(KeyCode.P))
 		{
 			if (DebugEnabled)
@@ -72,7 +74,7 @@ public class PlayerMovementScript : MonoBehaviour
 				EnableDebug();
 			}
 		}
-		debugText.GetComponent<Text>().text = " Light0 " + lightsHash[0] + "\n Light1 " + lightsHash[1] + "\n Light2 " + lightsHash[2] + "\n Light3" + lightsHash[3] + "\n Light4" + lightsHash[4] + "\n ML" + mouseStealth + "\n ML0 " + mouseLightsHash[0] + "\n ML1 " + mouseLightsHash[1] + "\n ML2 " + mouseLightsHash[2] + "\n ML3 " + mouseLightsHash[3] + "\n ML4 " + mouseLightsHash[4] + "\n Door1 ";
+		debugText.GetComponent<Text>().text = " Light0 " + lightsHash[0] + "\n Light1 " + lightsHash[1] + "\n Light2 " + lightsHash[2] + "\n Light3" + lightsHash[3] + "\n Light4" + lightsHash[4] + "\n ML" + mouseStealth + "\n ML0 " + mouseLightsHash[0] + "\n ML1 " + mouseLightsHash[1] + "\n ML2 " + mouseLightsHash[2] + "\n ML3 " + mouseLightsHash[3] + "\n ML4 " + mouseLightsHash[4];
 		//get movement input
 		movement.x = Input.GetAxisRaw("Horizontal");
 		movement.y = Input.GetAxisRaw("Vertical");
@@ -252,9 +254,19 @@ public class PlayerMovementScript : MonoBehaviour
 	}
 	void ShadowStep()
 	{
-		transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
-		PlayerAnimator.SetBool("TpReady", true);
-		Invoke("ShadowStepEnd", 0.35f);
+		RaycastHit2D CanShadowStep = Physics2D.Raycast(playerPoint.transform.position, mousePositionTrue - playerPoint.transform.position, Vector2.Distance(mousePositionTrue, playerPoint.transform.position));
+		Debug.Log(CanShadowStep.collider);
+		if (CanShadowStep.collider == null)
+		{
+			transform.position = new Vector3(mousePosition.x,mousePosition.y,-1);
+			PlayerAnimator.SetBool("TpReady", true);
+			Debug.Log("ShadowStep Activated");
+			Invoke("ShadowStepEnd", 0.35f);
+		}
+		else
+		{
+			Debug.Log("Can't ShadowStep");
+		}
 	}
 	void ShadowStepEnd()
 	{
