@@ -1,6 +1,6 @@
 # **Fear the dark**
 
-FTD is a 2D top-down stealth game that is made in written in C# and made with the Unity game engine.
+FTD is a 2D top-down stealth game that is written in C# and made with the Unity game engine.
 ## Main
 ### Why did i make this?
 I made this game mostly as a project for middle school but also to actually learn how to code/ learn a programming language.
