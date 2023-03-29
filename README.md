@@ -1,8 +1,14 @@
 # **Fear the dark**
 
-My 2D top down stealth game that i work on in my free time :D
+FTD is a 2D top-down stealth game that is made in written in C# and made with the Unity game engine.
+## Main
+### Why did i make this?
+I made this game mostly as a project for middle school but also to actually learn how to code/ learn a programming language.
 
-If you want to download and play it, please do so from itch.io as the builds and instructions are there, enjoy!
+### Download:
+If you want to download and play FTD, please do so from [Itch.io](https://hwsxdejv.itch.io/ftd) as the builds and instructions are there, enjoy!
+
+## Other:
 
 ### Links:
 
@@ -12,3 +18,5 @@ If you want to download and play it, please do so from itch.io as the builds and
 Creator and developer of this game is David Olejár.
 
 Also special thanks to František Křižek for helping me with unity and the code!
+
+Other than that is just the Unity asset store
