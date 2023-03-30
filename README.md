@@ -15,8 +15,8 @@ If you want to download and play FTD, please do so from [Itch.io](https://hwsxde
 [Itch io](https://hwsxdejv.itch.io/ftd) | [Trello](https://trello.com/b/PDDyNa9p/fear-the-dark)
 
 ### Credits:
-Creator and developer of this game is David Olejár.
+Creator and developer of this game is [David Olejár](https://github.com/Helvariors).
 
-Also special thanks to František Křižek for helping me with unity and the code!
+Also special thanks to [František Křižek](https://github.com/FKrizekk) for helping me with unity and the code!
 
 Other than that is just the Unity asset store
