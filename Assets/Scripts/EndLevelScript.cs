@@ -17,7 +17,7 @@ public class EndLevelScript : MonoBehaviour
 	}
 	void LoadEndScreen()
 	{
-		 Debug.Log("LoadEndScene");
-		 SceneLoader.Load(SceneLoader.Scene.EndScreen);
+		Debug.Log("LoadEndScene");
+		SceneLoader.Load(SceneLoader.Scene.EndScreen);
 	}
 }
