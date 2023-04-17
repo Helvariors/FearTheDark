@@ -13,15 +13,6 @@ public class ScreenSettingsScript : MonoBehaviour
 	public Toggle fsToggle;
 	public TMPro.TMP_Dropdown resDropdown;
 
-	void Start()
-	{
-		
-	}
-
-	void Update()
-	{
-		
-	}
 	public void ChooseScreenResolution()
 	{
 		chosenScreenRes = resDropdown.value;
